@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -20,6 +19,8 @@ public class Exito extends JDialog {
 
 	/**
 	 * Launch the application.
+	 * 
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		try {
@@ -30,61 +31,71 @@ public class Exito extends JDialog {
 	}
 
 	private final JPanel contentPanel;
-	private JPanel buttonPane;
-	private JButton okButton;
-	private JButton cancelButton;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
+	private final JPanel buttonPane;
+	private final JButton okButton;
+	private final JButton cancelButton;
+	private final JLabel lblNewLabel;
+	private final JLabel lblNewLabel_1;
 
 	/**
 	 * Create the dialog.
 	 */
 	public Exito() {
 		this.contentPanel = new JPanel();
+		this.buttonPane = new JPanel();
+		this.lblNewLabel = new JLabel("");
+		this.lblNewLabel_1 = new JLabel("Datos guardados satisfactoriamente");
+		this.okButton = new JButton("OK");
+		this.cancelButton = new JButton("Cancel");
+
+		configComponents();
+		addComponents();
+		configComponentEvents();
+	}
+
+	private void configComponentEvents() {
+		this.okButton.addActionListener((ActionEvent e) -> {
+			new MenuUsuario().setVisible(true);
+			dispose();
+		});
+		this.cancelButton.addActionListener((ActionEvent e) -> {
+			new MenuUsuario().setVisible(true);
+			dispose();
+		});
+	}
+
+	private void configComponents() {
 		this.contentPanel.setBackground(SystemColor.control);
 		this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPanel.setLayout(null);
 
-		this.lblNewLabel = new JLabel("");
 		this.lblNewLabel.setIcon(new ImageIcon(Exito.class.getResource("/imagenes/Ha-100px.png")));
 		this.lblNewLabel.setBounds(123, 11, 100, 100);
-		this.contentPanel.add(this.lblNewLabel);
 
-		this.lblNewLabel_1 = new JLabel("Datos guardados satisfactoriamente");
 		this.lblNewLabel_1.setForeground(new Color(12, 138, 199));
 		this.lblNewLabel_1.setFont(new Font("Arial", Font.BOLD, 18));
 		this.lblNewLabel_1.setBounds(27, 122, 322, 21);
-		this.contentPanel.add(this.lblNewLabel_1);
 
-		this.buttonPane = new JPanel();
 		this.buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		this.okButton = new JButton("OK");
-		this.okButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new MenuUsuario().setVisible(true);
-				dispose();
-			}
-		});
-		this.okButton.setActionCommand("OK");
-		this.buttonPane.add(this.okButton);
 
-		this.cancelButton = new JButton("Cancel");
-		this.cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new MenuUsuario().setVisible(true);
-				dispose();
-			}
-		});
+		this.okButton.setActionCommand("OK");
+
 		this.cancelButton.setActionCommand("Cancel");
-		this.buttonPane.add(this.cancelButton);
 
 		setIconImage(Toolkit.getDefaultToolkit().getImage(Exito.class.getResource("/imagenes/aH-40px.png")));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 394, 226);
 		getContentPane().setLayout(new BorderLayout());
-		getContentPane().add(this.contentPanel, BorderLayout.CENTER);
-		getContentPane().add(this.buttonPane, BorderLayout.SOUTH);
 		getRootPane().setDefaultButton(this.okButton);
 		setLocationRelativeTo(null);
+	}
+
+	private void addComponents() {
+		this.contentPanel.add(this.lblNewLabel);
+		this.contentPanel.add(this.lblNewLabel_1);
+		getContentPane().add(this.contentPanel, BorderLayout.CENTER);
+		this.buttonPane.add(this.cancelButton);
+		this.buttonPane.add(this.okButton);
+		getContentPane().add(this.buttonPane, BorderLayout.SOUTH);
 	}
 }
