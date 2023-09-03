@@ -158,7 +158,7 @@ public class Login extends JFrame {
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				location = new MouseEvents().headerMouseDragged(e, new int[] { coords[0], coords[1] });
+				location = new MouseEvents().headerMouseDragged(e, coords);
 				setLocation(location[0], location[1]);
 			}
 		});
