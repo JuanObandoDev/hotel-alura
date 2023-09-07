@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="D:/Documentos Juan/ONE/challenges/hotel-alura/hotel-alura/JARS/c3p0-0.9.5.4.jar"/>
 	<classpathentry kind="lib" path="D:/Documentos Juan/ONE/challenges/hotel-alura/hotel-alura/JARS/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="D:/Documentos Juan/ONE/challenges/hotel-alura/hotel-alura/JARS/mchange-commons-java-0.2.16.jar"/>
-	<classpathentry kind="lib" path="D:/Documentos Juan/ONE/challenges/hotel-alura/hotel-alura/JARS/mysql-connector-j-8.0.32.jar"/>
+	<classpathentry kind="lib" path="D:/Documentos Juan/ONE/challenges/hotel-alura/hotel-alura/JARS/mariadb-java-client-3.1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
