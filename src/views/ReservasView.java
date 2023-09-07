@@ -11,6 +11,10 @@ import javax.swing.ImageIcon;
 import java.awt.Color;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+
+import controllers.ReservationController;
+import models.Reservation;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -18,8 +22,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.Toolkit;
-import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
+import java.sql.SQLException;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -321,21 +326,36 @@ public class ReservasView extends JFrame {
 				labelAtras.setForeground(Color.black);
 			}
 		});
-		ReservasView.txtFechaSalida.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-				if (txtFechaEntrada.getDate() != null && txtFechaSalida.getDate() != null) {
-					long diferencia = txtFechaSalida.getDate().getTime() - txtFechaEntrada.getDate().getTime();
-					long dias = diferencia / (1000 * 60 * 60 * 24);
-					txtValor.setText("$" + String.valueOf(dias * 1000));
-				}
+		ReservasView.txtFechaSalida.addPropertyChangeListener((PropertyChangeEvent evt) -> {
+			if (txtFechaEntrada.getDate() != null && txtFechaSalida.getDate() != null) {
+				long diferencia = txtFechaSalida.getDate().getTime() - txtFechaEntrada.getDate().getTime();
+				long dias = diferencia / (1000 * 60 * 60 * 24);
+				txtValor.setText("$" + String.valueOf(dias * 1000));
 			}
 		});
 		this.btnsiguiente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				int value;
 				if (ReservasView.txtFechaEntrada.getDate() == null || ReservasView.txtFechaSalida.getDate() == null) {
 					JOptionPane.showMessageDialog(null, "Debes llenar todos los campos.");
 					return;
+				}
+				try {
+					value = Integer.valueOf(txtValor.getText().replace("$", ""));
+				} catch (NumberFormatException ex) {
+					return;
+				}
+				Reservation reservation = new Reservation(
+						1,
+						txtFechaEntrada.getDate().toString(),
+						txtFechaSalida.getDate().toString(),
+						value,
+						txtFormaPago.getSelectedItem().toString());
+				try {
+					new ReservationController().save(reservation);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
 				}
 				new RegistroHuesped().setVisible(true);
 				dispose();
