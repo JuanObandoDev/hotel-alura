@@ -22,6 +22,14 @@ public class ReservationController {
         return this.reservationDAO.getReservationsWithGuests();
     }
 
+    public int getReservationId() throws SQLException {
+        return this.reservationDAO.getLastReservationId();
+    }
+
+    public void deleteReservation(int id) throws SQLException {
+        this.reservationDAO.delete(id);
+    }
+
     public void save(Reservation reservation) throws SQLException {
         this.reservationDAO.insert(reservation);
     }
