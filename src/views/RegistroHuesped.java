@@ -21,6 +21,9 @@ import java.awt.Toolkit;
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import utils.MouseEvents;
+import controllers.ReservationController;
+import models.Guest;
+import controllers.GuestController;
 
 @SuppressWarnings("serial")
 public class RegistroHuesped extends JFrame {
@@ -72,6 +75,7 @@ public class RegistroHuesped extends JFrame {
 	private final JComboBox<Format> txtNacionalidad;
 	private int[] coords = new int[2];
 	private int[] location = new int[2];
+	private int nReserva;
 
 	/**
 	 * Create the frame.
@@ -107,6 +111,7 @@ public class RegistroHuesped extends JFrame {
 		this.separator_1_2_3 = new JSeparator();
 		this.separator_1_2_4 = new JSeparator();
 		this.separator_1_2_5 = new JSeparator();
+		this.nReserva = getNReserva();
 
 		configComponents();
 		configComponentEvents();
@@ -209,6 +214,7 @@ public class RegistroHuesped extends JFrame {
 		this.txtNreserva.setBounds(560, 495, 285, 33);
 		this.txtNreserva.setColumns(10);
 		this.txtNreserva.setBackground(Color.WHITE);
+		this.txtNreserva.setText(this.nReserva + "");
 		this.txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 
 		this.separator_1_2.setBounds(560, 170, 289, 2);
@@ -289,8 +295,13 @@ public class RegistroHuesped extends JFrame {
 		this.btnAtras.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new ReservasView().setVisible(true);
-				dispose();
+				try {
+					new ReservationController().deleteReservation(nReserva);
+					new ReservasView().setVisible(true);
+					dispose();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+				}
 			}
 
 			@Override
@@ -308,14 +319,32 @@ public class RegistroHuesped extends JFrame {
 		this.btnguardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// save huesped
+				try {
+					new GuestController().save(new Guest(
+							1,
+							txtNombre.getText(),
+							txtApellido.getText(),
+							txtFechaN.getDate().toString(),
+							txtNacionalidad.getSelectedItem().toString(),
+							txtTelefono.getText(),
+							nReserva));
+					new Exito().setVisible(true);
+					dispose();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+				}
 			}
 		});
 		this.btnexit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				new MenuPrincipal().setVisible(true);
-				dispose();
+				try {
+					new ReservationController().deleteReservation(nReserva);
+					new MenuPrincipal().setVisible(true);
+					dispose();
+				} catch (Exception e1) {
+					System.out.println(e1.getMessage());
+				}
 			}
 
 			@Override
@@ -364,4 +393,14 @@ public class RegistroHuesped extends JFrame {
 		this.btnexit.add(this.labelExit);
 		setContentPane(this.contentPane);
 	}
+
+	private int getNReserva() {
+		try {
+			return new ReservationController().getReservationId();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return 0;
+	}
+
 }
