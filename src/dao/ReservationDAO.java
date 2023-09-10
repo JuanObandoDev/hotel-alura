@@ -98,6 +98,33 @@ public class ReservationDAO {
         return reservations;
     }
 
+    public int getLastReservationId() throws SQLException {
+        final PreparedStatement ps = this.conn.prepareStatement(
+                "SELECT id FROM reservations ORDER BY id DESC LIMIT 1");
+        try (ps) {
+            final ResultSet rs = ps.executeQuery();
+            try (rs) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public void delete(int id) throws SQLException {
+        final PreparedStatement ps = this.conn.prepareStatement(
+                "DELETE FROM reservations WHERE id = ?");
+        try (ps) {
+            ps.setInt(1, id);
+            ps.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     public void insert(Reservation reservation) throws SQLException {
         final PreparedStatement ps = this.conn.prepareStatement(
                 "INSERT INTO reservations (start_date, end_date, total, payment_method) VALUES (?, ?, ?, ?)");
