@@ -6,6 +6,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+
+import controllers.GuestController;
+import controllers.ReservationController;
+import models.Guest;
+import models.Reservation;
+
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
@@ -20,6 +26,10 @@ import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
 import utils.MouseEvents;
 
 @SuppressWarnings("serial")
@@ -78,7 +88,7 @@ public class Busqueda extends JFrame {
 		this.btnEditar = new JPanel();
 		this.btnEliminar = new JPanel();
 		this.txtBuscar = new JTextField();
-		this.lblNewLabel_4 = new JLabel("SISTEMA DE BÚSQUEDA");
+		this.lblNewLabel_4 = new JLabel("BÚSQUEDA");
 		this.lblNewLabel_2 = new JLabel("");
 		this.labelAtras = new JLabel("<");
 		this.labelExit = new JLabel("X");
@@ -122,6 +132,7 @@ public class Busqueda extends JFrame {
 		this.modelo.addColumn("Fecha Check Out");
 		this.modelo.addColumn("Valor");
 		this.modelo.addColumn("Forma de Pago");
+		this.loadReservationTable();
 
 		this.scroll_table = new JScrollPane(this.tbReservas);
 		this.scroll_table.setVisible(true);
@@ -136,6 +147,7 @@ public class Busqueda extends JFrame {
 		this.modeloHuesped.addColumn("Nacionalidad");
 		this.modeloHuesped.addColumn("Telefono");
 		this.modeloHuesped.addColumn("Número de Reserva");
+		this.loadGuestTable();
 
 		this.scroll_tableHuespedes = new JScrollPane(this.tbHuespedes);
 		this.scroll_tableHuespedes.setVisible(true);
@@ -261,7 +273,36 @@ public class Busqueda extends JFrame {
 		this.btnbuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// search method
+				String search = txtBuscar.getText();
+				if (search.isEmpty()) {
+					loadReservationTable();
+					loadGuestTable();
+				} else {
+					try {
+						modelo.setRowCount(0);
+						List<Reservation> reservations = new ReservationController().getReservationsBySearch(search);
+						reservations.forEach(reservation -> modelo.addRow(new Object[] {
+								reservation.getId(),
+								convertToDate(reservation.getStartDate()),
+								convertToDate(reservation.getEndDate()),
+								reservation.getTotal(),
+								reservation.getPaymentMethod()
+						}));
+						modeloHuesped.setRowCount(0);
+						List<Guest> guests = new GuestController().getGuestsBySearch(search);
+						guests.forEach(guest -> modeloHuesped.addRow(new Object[] {
+								guest.getId(),
+								guest.getName(),
+								guest.getLastName(),
+								convertToDate(guest.getBornDate()),
+								guest.getNationality(),
+								guest.getPhone(),
+								guest.getReservationId()
+						}));
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 	}
@@ -294,5 +335,57 @@ public class Busqueda extends JFrame {
 		this.contentPane.add(this.lblNewLabel_4);
 		this.contentPane.add(this.txtBuscar);
 		setContentPane(this.contentPane);
+	}
+
+	private void loadReservationTable() {
+		try {
+			List<Reservation> reservations = new ReservationController().getReservations();
+			reservations.forEach(reservation -> this.modelo.addRow(new Object[] {
+					reservation.getId(),
+					convertToDate(reservation.getStartDate()),
+					convertToDate(reservation.getEndDate()),
+					reservation.getTotal(),
+					reservation.getPaymentMethod()
+			}));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void loadGuestTable() {
+		try {
+			List<Guest> guests = new GuestController().getGuests();
+			guests.forEach(guest -> this.modeloHuesped.addRow(new Object[] {
+					guest.getId(),
+					guest.getName(),
+					guest.getLastName(),
+					convertToDate(guest.getBornDate()),
+					guest.getNationality(),
+					guest.getPhone(),
+					guest.getReservationId()
+			}));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String convertToDate(String strDate) {
+		HashMap<String, String> months = new HashMap<>();
+		months.put("Jan", "01");
+		months.put("Feb", "02");
+		months.put("Mar", "03");
+		months.put("Apr", "04");
+		months.put("May", "05");
+		months.put("Jun", "06");
+		months.put("Jul", "07");
+		months.put("Aug", "08");
+		months.put("Sep", "09");
+		months.put("Oct", "10");
+		months.put("Nov", "11");
+		months.put("Dec", "12");
+		String[] date = strDate.split(" ");
+		String[] day = date[2].split(",");
+		String month = months.get(date[1]);
+		return day[0] + "-" + month + "-" + date[5];
 	}
 }
