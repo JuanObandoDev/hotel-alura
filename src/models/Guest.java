@@ -45,7 +45,7 @@ public class Guest {
         return this.born_date;
     }
 
-    public String getNacionality() {
+    public String getNationality() {
         return this.nacionality;
     }
 
