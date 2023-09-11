@@ -55,6 +55,10 @@ public class GuestController {
         return new GuestDAO(new ConnectionFactory().getConnection()).select(reservation_id);
     }
 
+    public List<Guest> getGuestsBySearch(String search) throws SQLException {
+        return new GuestDAO(new ConnectionFactory().getConnection()).getGuestsBySearch(search);
+    }
+
     public void save(Guest guest) throws SQLException {
         new GuestDAO(new ConnectionFactory().getConnection()).insert(guest);
     }
