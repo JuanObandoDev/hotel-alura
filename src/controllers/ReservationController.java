@@ -18,6 +18,10 @@ public class ReservationController {
         return this.reservationDAO.getReservations();
     }
 
+    public List<Reservation> getReservationsBySearch(String search) throws SQLException {
+        return this.reservationDAO.getReservationsBySearch(search);
+    }
+
     public List<Reservation> getReport() throws SQLException {
         return this.reservationDAO.getReservationsWithGuests();
     }
