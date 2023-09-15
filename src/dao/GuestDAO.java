@@ -8,13 +8,36 @@ import java.util.ArrayList;
 import java.util.List;
 import models.Guest;
 
+/**
+ * Class GuestDAO
+ * this class is used to handle the guest data
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @see models.Guest
+ * 
+ * @autor JuanObandoDev
+ */
 public class GuestDAO {
     private final Connection conn;
 
+    /**
+     * Constructor method that receives a connection as param and sets it to the
+     * class attribute
+     * 
+     * @param conn
+     */
     public GuestDAO(Connection conn) {
         this.conn = conn;
     }
 
+    /**
+     * Method that inserts a guest object into the database
+     * 
+     * @param guest
+     * @throws SQLException
+     */
     public void insert(Guest guest) throws SQLException {
         try (this.conn) {
             final PreparedStatement ps = this.conn.prepareStatement(
@@ -33,6 +56,12 @@ public class GuestDAO {
         }
     }
 
+    /**
+     * Method that Selects all guests from the database
+     * 
+     * @return List<Guest> guests
+     * @throws SQLException
+     */
     public List<Guest> select() throws SQLException {
         List<Guest> guests = new ArrayList<>();
         try (this.conn) {
@@ -57,6 +86,13 @@ public class GuestDAO {
         return guests;
     }
 
+    /**
+     * Method that returns a guest object by reservation_id
+     * 
+     * @param reservation_id
+     * @return List<Guest> guests
+     * @throws SQLException
+     */
     public List<Guest> select(int reservation_id) throws SQLException {
         List<Guest> guests = new ArrayList<>();
         try (this.conn) {
@@ -82,6 +118,13 @@ public class GuestDAO {
         return guests;
     }
 
+    /**
+     * Method that get a guest object by search param
+     * 
+     * @param search
+     * @return List<Guest> guests
+     * @throws SQLException
+     */
     public List<Guest> getGuestsBySearch(String search) throws SQLException {
         List<Guest> guests = new ArrayList<>();
         try (this.conn) {

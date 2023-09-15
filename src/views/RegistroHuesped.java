@@ -25,6 +25,23 @@ import controllers.ReservationController;
 import models.Guest;
 import controllers.GuestController;
 
+/**
+ * Class RegistroHuesped
+ * this class is the menu to register a guest
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JFrame
+ * 
+ * @see controllers.ReservationController
+ * @see controllers.GuestController
+ * @see models.Guest
+ * @see utils.MouseEvents
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 @SuppressWarnings("serial")
 public class RegistroHuesped extends JFrame {
 
@@ -78,7 +95,7 @@ public class RegistroHuesped extends JFrame {
 	private int nReserva;
 
 	/**
-	 * Create the frame.
+	 * Constructor method that init the components of the class
 	 */
 	public RegistroHuesped() {
 		this.contentPane = new JPanel();
@@ -118,6 +135,9 @@ public class RegistroHuesped extends JFrame {
 		addComponents();
 	}
 
+	/**
+	 * Method that config the components of the class
+	 */
 	private void configComponents() {
 		this.contentPane.setBackground(SystemColor.text);
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -278,8 +298,14 @@ public class RegistroHuesped extends JFrame {
 		setUndecorated(true);
 	}
 
+	/**
+	 * Method that config the events of the components
+	 */
 	private void configComponentEvents() {
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
+			/**
+			 * Method to move the window
+			 */
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				location = new MouseEvents().headerMouseDragged(e, coords);
@@ -287,12 +313,18 @@ public class RegistroHuesped extends JFrame {
 			}
 		});
 		this.header.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method to get the coordinates of the window
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				coords = new MouseEvents().headerMousePressed(e);
 			}
 		});
 		this.btnAtras.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method to go back to the previous window
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
@@ -304,12 +336,18 @@ public class RegistroHuesped extends JFrame {
 				}
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnAtras.setBackground(Color.white);
 				labelAtras.setForeground(Color.black);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnAtras.setBackground(new Color(12, 138, 199));
@@ -317,6 +355,9 @@ public class RegistroHuesped extends JFrame {
 			}
 		});
 		this.btnguardar.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that save the guest
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
@@ -336,6 +377,9 @@ public class RegistroHuesped extends JFrame {
 			}
 		});
 		this.btnexit.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that close the frame and delete the reservation
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				try {
@@ -347,12 +391,18 @@ public class RegistroHuesped extends JFrame {
 				}
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.RED);
 				labelExit.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnexit.setBackground(Color.white);
@@ -394,6 +444,11 @@ public class RegistroHuesped extends JFrame {
 		setContentPane(this.contentPane);
 	}
 
+	/**
+	 * Method that get the reservation id
+	 * 
+	 * @return the reservation id
+	 */
 	private int getNReserva() {
 		try {
 			return new ReservationController().getReservationId();

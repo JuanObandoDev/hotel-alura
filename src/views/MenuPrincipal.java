@@ -17,6 +17,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import utils.MouseEvents;
 
+/**
+ * Class MenuPrincipal
+ * this class is the main menu of the application
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JFrame
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 @SuppressWarnings("serial")
 public class MenuPrincipal extends JFrame {
 
@@ -51,7 +63,7 @@ public class MenuPrincipal extends JFrame {
 	private int[] location = new int[2];
 
 	/**
-	 * Create the frame.
+	 * Constructor method that init the components of the class
 	 */
 	public MenuPrincipal() {
 		this.contentPane = new JPanel();
@@ -72,8 +84,14 @@ public class MenuPrincipal extends JFrame {
 		configComponentEvents();
 	}
 
+	/**
+	 * Method that config the events of the components
+	 */
 	private void configComponentEvents() {
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
+			/**
+			 * Method that move the frame
+			 */
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				location = new MouseEvents().headerMouseDragged(e, coords);
@@ -81,23 +99,35 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		this.header.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that get the coords of the frame
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				coords = new MouseEvents().headerMousePressed(e);
 			}
 		});
 		this.btnexit.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that close the frame
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnexit.setBackground(Color.white);
@@ -105,6 +135,9 @@ public class MenuPrincipal extends JFrame {
 			}
 		});
 		this.btnLogin.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that move to the login frame
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new Login().setVisible(true);
@@ -113,6 +146,9 @@ public class MenuPrincipal extends JFrame {
 		});
 	}
 
+	/**
+	 * Method that config the components of the class
+	 */
 	private void configComponents() {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(null);
@@ -171,6 +207,9 @@ public class MenuPrincipal extends JFrame {
 		setUndecorated(true);
 	}
 
+	/**
+	 * Method that add the components to the frame
+	 */
 	private void addComponents() {
 		this.panel.add(this.imagenFondo);
 		this.panel.add(this.logo);

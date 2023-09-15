@@ -19,6 +19,20 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import utils.MouseEvents;
 
+/**
+ * Class Login
+ * this class is the login of the application
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JFrame
+ * 
+ * @see utils.MouseEvents
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 public class Login extends JFrame {
 
 	/**
@@ -57,7 +71,7 @@ public class Login extends JFrame {
 	private int[] location = new int[2];
 
 	/**
-	 * Create the frame.
+	 * Constructor method that init the components of the class
 	 */
 	public Login() {
 		this.contentPane = new JPanel();
@@ -83,6 +97,12 @@ public class Login extends JFrame {
 		configComponentEvents();
 	}
 
+	/**
+	 * Method that validate the login
+	 * 
+	 * @param user
+	 * @param password
+	 */
 	private void validateLogin(String user, String password) {
 		String Usuario = "admin";
 		String Contraseña = "admin";
@@ -94,19 +114,31 @@ public class Login extends JFrame {
 		}
 	}
 
+	/**
+	 * Method that config the events of the components
+	 */
 	private void configComponentEvents() {
 		this.btnexit.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that close the application
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnexit.setBackground(new Color(12, 138, 199));
@@ -114,6 +146,9 @@ public class Login extends JFrame {
 			}
 		});
 		this.txtContrasena.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that change the text of the password field
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (String.valueOf(txtContrasena.getPassword()).equals("********")) {
@@ -127,6 +162,9 @@ public class Login extends JFrame {
 			}
 		});
 		this.txtUsuario.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that change the text of the user field
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if (txtUsuario.getText().equals("Ingrese su nombre de usuario")) {
@@ -140,22 +178,34 @@ public class Login extends JFrame {
 			}
 		});
 		this.btnLogin.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnLogin.setBackground(new Color(0, 156, 223));
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnLogin.setBackground(SystemColor.textHighlight);
 			}
 
+			/**
+			 * Method that calls the method validateLogin
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				validateLogin(txtUsuario.getText(), String.valueOf(txtContrasena.getPassword()));
 			}
 		});
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
+			/**
+			 * Method that move the frame
+			 */
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				location = new MouseEvents().headerMouseDragged(e, coords);
@@ -163,6 +213,9 @@ public class Login extends JFrame {
 			}
 		});
 		this.header.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that get the coords of the frame
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				coords = new MouseEvents().headerMousePressed(e);
@@ -170,6 +223,9 @@ public class Login extends JFrame {
 		});
 	}
 
+	/**
+	 * Method that config the components of the class
+	 */
 	private void configComponents() {
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(null);
@@ -251,6 +307,9 @@ public class Login extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Method that add the components to the frame
+	 */
 	private void addComponents() {
 		this.btnexit.add(this.labelExit);
 		this.panel_1.add(this.btnexit);

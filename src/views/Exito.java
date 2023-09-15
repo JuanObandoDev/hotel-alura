@@ -14,6 +14,18 @@ import java.awt.event.ActionEvent;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
 
+/**
+ * Class Exito
+ * this class is the success message of the application
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JDialog
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 @SuppressWarnings("serial")
 public class Exito extends JDialog {
 
@@ -53,17 +65,29 @@ public class Exito extends JDialog {
 		configComponentEvents();
 	}
 
+	/**
+	 * Method that configures the events of the components
+	 */
 	private void configComponentEvents() {
+		/**
+		 * Event that closes the dialog and opens the main menu
+		 */
 		this.okButton.addActionListener((ActionEvent e) -> {
 			new MenuUsuario().setVisible(true);
 			dispose();
 		});
+		/**
+		 * Event that closes the dialog and opens the main menu
+		 */
 		this.cancelButton.addActionListener((ActionEvent e) -> {
 			new MenuUsuario().setVisible(true);
 			dispose();
 		});
 	}
 
+	/**
+	 * Method that configures the components of the view
+	 */
 	private void configComponents() {
 		this.contentPanel.setBackground(SystemColor.control);
 		this.contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -90,6 +114,9 @@ public class Exito extends JDialog {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Method that adds the components to the view
+	 */
 	private void addComponents() {
 		this.contentPanel.add(this.lblNewLabel);
 		this.contentPanel.add(this.lblNewLabel_1);

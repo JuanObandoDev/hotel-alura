@@ -32,6 +32,24 @@ import java.util.List;
 
 import utils.MouseEvents;
 
+/**
+ * Class Busqueda
+ * this class is the search menu of the application
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JFrame
+ * 
+ * @see controllers.GuestController
+ * @see controllers.ReservationController
+ * @see models.Guest
+ * @see models.Reservation
+ * @see utils.MouseEvents
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 @SuppressWarnings("serial")
 public class Busqueda extends JFrame {
 
@@ -77,7 +95,7 @@ public class Busqueda extends JFrame {
 	private int[] location = new int[2];
 
 	/**
-	 * Create the frame.
+	 * Constructor method that init the components of the class
 	 */
 	public Busqueda() {
 		this.contentPane = new JPanel();
@@ -107,6 +125,9 @@ public class Busqueda extends JFrame {
 		addComponents();
 	}
 
+	/**
+	 * Method that config the components of the class
+	 */
 	private void configComponents() {
 		this.contentPane.setBackground(Color.WHITE);
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -218,8 +239,14 @@ public class Busqueda extends JFrame {
 		setResizable(false);
 	}
 
+	/**
+	 * Method that config the events of the components
+	 */
 	private void configComponentEvents() {
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
+			/**
+			 * Method that move the frame
+			 */
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				location = new MouseEvents().headerMouseDragged(e, coords);
@@ -227,24 +254,36 @@ public class Busqueda extends JFrame {
 			}
 		});
 		this.header.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that get the coordinates of the frame
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				coords = new MouseEvents().headerMousePressed(e);
 			}
 		});
 		this.btnAtras.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that returns to the main menu after login
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new MenuUsuario().setVisible(true);
 				dispose();
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse enter
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnAtras.setBackground(new Color(12, 138, 199));
 				labelAtras.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnAtras.setBackground(Color.white);
@@ -252,18 +291,27 @@ public class Busqueda extends JFrame {
 			}
 		});
 		this.btnexit.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that close and returns to the main menu
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new MenuUsuario().setVisible(true);
 				dispose();
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse enter
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnexit.setBackground(Color.white);
@@ -271,6 +319,9 @@ public class Busqueda extends JFrame {
 			}
 		});
 		this.btnbuscar.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that search a reservation or guest
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				String search = txtBuscar.getText();
@@ -307,6 +358,9 @@ public class Busqueda extends JFrame {
 		});
 	}
 
+	/**
+	 * Method that add the components to the frame
+	 */
 	private void addComponents() {
 		this.panel.addTab(
 				"Reservas",
@@ -337,6 +391,9 @@ public class Busqueda extends JFrame {
 		setContentPane(this.contentPane);
 	}
 
+	/**
+	 * Method that load the reservation table
+	 */
 	private void loadReservationTable() {
 		try {
 			List<Reservation> reservations = new ReservationController().getReservations();
@@ -352,6 +409,9 @@ public class Busqueda extends JFrame {
 		}
 	}
 
+	/**
+	 * Method that load the guest table
+	 */
 	private void loadGuestTable() {
 		try {
 			List<Guest> guests = new GuestController().getGuests();
@@ -369,6 +429,9 @@ public class Busqueda extends JFrame {
 		}
 	}
 
+	/**
+	 * Method that convert a string date to a date format
+	 */
 	private String convertToDate(String strDate) {
 		HashMap<String, String> months = new HashMap<>();
 		months.put("Jan", "01");

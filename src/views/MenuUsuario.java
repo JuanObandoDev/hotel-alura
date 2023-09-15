@@ -19,6 +19,20 @@ import java.awt.SystemColor;
 import javax.swing.JSeparator;
 import utils.MouseEvents;
 
+/**
+ * Class MenuUsuario
+ * this class is the main menu of the application after login
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JFrame
+ * 
+ * @see utils.MouseEvents
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 @SuppressWarnings("serial")
 public class MenuUsuario extends JFrame {
 
@@ -61,7 +75,7 @@ public class MenuUsuario extends JFrame {
 	private int[] location = new int[2];
 
 	/**
-	 * Create the frame.
+	 * Constructor method that init the components of the class
 	 */
 	public MenuUsuario() {
 		this.contentPane = new JPanel();
@@ -92,8 +106,14 @@ public class MenuUsuario extends JFrame {
 		configComponentEvents();
 	}
 
+	/**
+	 * Method that config the events of the components
+	 */
 	private void configComponentEvents() {
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
+			/**
+			 * Method that move the frame
+			 */
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				location = new MouseEvents().headerMouseDragged(e, coords);
@@ -101,22 +121,34 @@ public class MenuUsuario extends JFrame {
 			}
 		});
 		this.header.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that get the coords of the frame
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				coords = new MouseEvents().headerMousePressed(e);
 			}
 		});
 		this.btnRegistro.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnRegistro.setBackground(new Color(118, 187, 223));
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnRegistro.setBackground(new Color(12, 138, 199));
 			}
 
+			/**
+			 * Method that open the frame ReservasView
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new ReservasView().setVisible(true);
@@ -124,16 +156,25 @@ public class MenuUsuario extends JFrame {
 			}
 		});
 		this.btnBusqueda.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnBusqueda.setBackground(new Color(118, 187, 223));
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnBusqueda.setBackground(new Color(12, 138, 199));
 			}
 
+			/**
+			 * Method that open the frame Busqueda
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new Busqueda().setVisible(true);
@@ -141,17 +182,26 @@ public class MenuUsuario extends JFrame {
 			}
 		});
 		this.btnexit.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that close the frame
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.exit(0);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnexit.setBackground(Color.white);
@@ -160,6 +210,9 @@ public class MenuUsuario extends JFrame {
 		});
 	}
 
+	/**
+	 * Method that config the components of the class
+	 */
 	private void configComponents() {
 		this.contentPane.setBackground(Color.WHITE);
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -245,6 +298,9 @@ public class MenuUsuario extends JFrame {
 		setUndecorated(true);
 	}
 
+	/**
+	 * Method that add the components to the frame
+	 */
 	private void addComponents() {
 		this.btnexit.add(this.labelExit);
 		this.panelMenu.add(this.separator);

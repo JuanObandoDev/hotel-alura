@@ -10,13 +10,38 @@ import java.util.List;
 import models.Guest;
 import models.Reservation;
 
+/**
+ * Class ReservationDAO
+ * this class is used to handle the reservation data
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @see models.Reservation
+ * @see models.Guest
+ * 
+ * @author JuanObandoDev
+ */
 public class ReservationDAO {
     private final Connection conn;
 
+    /**
+     * Constructor method that receives a connection as param and sets it to the
+     * class attribute
+     * 
+     * @param conn
+     */
     public ReservationDAO(Connection conn) {
         this.conn = conn;
     }
 
+    /**
+     * Method that returns a reservation object by id
+     * 
+     * @param id
+     * @return int id
+     * @throws SQLException
+     */
     public int getReservation(String id) throws SQLException {
         final PreparedStatement ps = this.conn.prepareStatement(
                 "SELECT id FROM reservations WHERE id = ?");
@@ -34,6 +59,12 @@ public class ReservationDAO {
         return 0;
     }
 
+    /**
+     * Method that returns all reservations
+     * 
+     * @return List<Reservation> reservations
+     * @throws SQLException
+     */
     public List<Reservation> getReservations() throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
         final PreparedStatement ps = this.conn.prepareStatement(
@@ -56,6 +87,12 @@ public class ReservationDAO {
         return reservations;
     }
 
+    /**
+     * Method that returns all reservations with guests
+     * 
+     * @return List<Reservation> reservations
+     * @throws SQLException
+     */
     public List<Reservation> getReservationsWithGuests() throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
         final PreparedStatement ps = this.conn.prepareStatement(
@@ -98,6 +135,13 @@ public class ReservationDAO {
         return reservations;
     }
 
+    /**
+     * Method that returns all reservations by search
+     * 
+     * @param search
+     * @return List<Reservation> reservations
+     * @throws SQLException
+     */
     public List<Reservation> getReservationsBySearch(String search) throws SQLException {
         List<Reservation> reservations = new ArrayList<>();
         final PreparedStatement ps = this.conn.prepareStatement(
@@ -125,6 +169,12 @@ public class ReservationDAO {
         return reservations;
     }
 
+    /**
+     * Method that returns the last reservation id added
+     * 
+     * @return int id
+     * @throws SQLException
+     */
     public int getLastReservationId() throws SQLException {
         final PreparedStatement ps = this.conn.prepareStatement(
                 "SELECT id FROM reservations ORDER BY id DESC LIMIT 1");
@@ -141,6 +191,12 @@ public class ReservationDAO {
         return 0;
     }
 
+    /**
+     * Method that delete a reservation by id
+     * 
+     * @param id
+     * @throws SQLException
+     */
     public void delete(int id) throws SQLException {
         final PreparedStatement ps = this.conn.prepareStatement(
                 "DELETE FROM reservations WHERE id = ?");
@@ -152,6 +208,12 @@ public class ReservationDAO {
         }
     }
 
+    /**
+     * Method that insert a reservation
+     * 
+     * @param reservation
+     * @throws SQLException
+     */
     public void insert(Reservation reservation) throws SQLException {
         final PreparedStatement ps = this.conn.prepareStatement(
                 "INSERT INTO reservations (start_date, end_date, total, payment_method) VALUES (?, ?, ?, ?)");

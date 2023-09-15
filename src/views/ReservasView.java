@@ -30,6 +30,22 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import utils.MouseEvents;
 
+/**
+ * Class ReservasView
+ * this class is the reservation of the application
+ * 
+ * @version 1.0
+ * @since 1.0
+ * 
+ * @extends JFrame
+ * 
+ * @see utils.MouseEvents
+ * @see controllers.ReservationController
+ * @see models.Reservation
+ * 
+ * @author genesysaluralatam
+ * @author JuanObandoDev
+ */
 @SuppressWarnings("serial")
 public class ReservasView extends JFrame {
 
@@ -77,7 +93,7 @@ public class ReservasView extends JFrame {
 	private int[] location = new int[2];
 
 	/**
-	 * Create the frame.
+	 * Constructor method that init the components of the class
 	 */
 	public ReservasView() {
 		super("Reserva");
@@ -112,6 +128,9 @@ public class ReservasView extends JFrame {
 		configComponentEvents();
 	}
 
+	/**
+	 * Method that config the components of the class
+	 */
 	private void configComponents() {
 		this.contentPane.setBackground(SystemColor.control);
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -246,6 +265,9 @@ public class ReservasView extends JFrame {
 		setUndecorated(true);
 	}
 
+	/**
+	 * Method that add the components to the frame
+	 */
 	private void addComponents() {
 		this.btnexit.add(this.labelExit);
 		this.panel_1.add(this.btnexit);
@@ -274,20 +296,32 @@ public class ReservasView extends JFrame {
 		setContentPane(this.contentPane);
 	}
 
+	/**
+	 * Method that config the events of the components
+	 */
 	private void configComponentEvents() {
 		this.btnexit.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that return to the principal menu
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new MenuPrincipal().setVisible(true);
 				dispose();
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnexit.setBackground(Color.red);
 				labelExit.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnexit.setBackground(new Color(12, 138, 199));
@@ -295,6 +329,9 @@ public class ReservasView extends JFrame {
 			}
 		});
 		this.header.addMouseMotionListener(new MouseMotionAdapter() {
+			/**
+			 * Method that move the frame
+			 */
 			@Override
 			public void mouseDragged(MouseEvent e) {
 				location = new MouseEvents().headerMouseDragged(e, coords);
@@ -302,30 +339,45 @@ public class ReservasView extends JFrame {
 			}
 		});
 		this.header.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that get the coords of the frame
+			 */
 			@Override
 			public void mousePressed(MouseEvent e) {
 				coords = new MouseEvents().headerMousePressed(e);
 			}
 		});
 		this.btnAtras.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that return to the principal menu after login
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				new MenuUsuario().setVisible(true);
 				dispose();
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is over
+			 */
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				btnAtras.setBackground(new Color(12, 138, 199));
 				labelAtras.setForeground(Color.white);
 			}
 
+			/**
+			 * Method that change the color of the button when the mouse is out
+			 */
 			@Override
 			public void mouseExited(MouseEvent e) {
 				btnAtras.setBackground(Color.white);
 				labelAtras.setForeground(Color.black);
 			}
 		});
+		/**
+		 * Method that calculate the value of the reservation
+		 */
 		ReservasView.txtFechaSalida.addPropertyChangeListener((PropertyChangeEvent evt) -> {
 			if (txtFechaEntrada.getDate() != null && txtFechaSalida.getDate() != null) {
 				long diferencia = txtFechaSalida.getDate().getTime() - txtFechaEntrada.getDate().getTime();
@@ -334,6 +386,9 @@ public class ReservasView extends JFrame {
 			}
 		});
 		this.btnsiguiente.addMouseListener(new MouseAdapter() {
+			/**
+			 * Method that move to the next frame saving the reservation
+			 */
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				int value;
